@@ -35,7 +35,7 @@ def runner_available():
 
 
 def runner_registered():
-    with open(os.environ.get('RUNNER_HOME') + "/.runner", encoding='utf-8-sig') as f:
+    with open(str(os.environ.get('RUNNER_HOME')) + "/.runner", encoding='utf-8-sig') as f:
         runner_info = json.load(f)
         parsed = urlparse(runner_info['gitHubUrl'])
         org = os.path.split(parsed.path)[0].strip("/")
@@ -58,7 +58,7 @@ health.add_check(runner_registered)
 
 
 def application_data():
-    with open("/home/runner/.runner", encoding='utf-8-sig') as f:
+    with open(str(os.environ.get('RUNNER_HOME')) + "/.runner", encoding='utf-8-sig') as f:
         runner_info = json.load(f)
 
     return {"maintainer": "Operations",
